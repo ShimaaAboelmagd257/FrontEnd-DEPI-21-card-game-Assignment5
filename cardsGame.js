@@ -5,6 +5,8 @@ let sum = 0
 let maxCards = 5
 let isWinning = false
 let isLosing = false
+let winningScore = parseInt(localStorage.getItem("winningScore")) || 0;
+let winningText = document.getElementById("winning_el")
 const alertMessage = document.getElementById("alert_mes")
 let cardsEl = document.getElementById("cards-el");
 const newCardButton = document.getElementById('new-card-button');
@@ -40,6 +42,10 @@ function updateSum(card){
     sum += card
     if(sum == 21 ){
         isWinning = true
+        winningScore += 1
+        localStorage.setItem("winningScore" , winningScore)
+        winningText.textContent = `Winning score: ${winningScore}`;
+        //localStorage.getItem("winningScore")
         alertMessage.textContent = "Congratulation you won"
         //alert("Congratulation you won")
        // resetGame()
@@ -68,4 +74,5 @@ function resetGame(){
 document.addEventListener('DOMContentLoaded', () => {
     newCardButton.addEventListener('click', addCard);
     newGameButton.addEventListener('click', resetGame);
+    winningText.textContent = `Winning Count: ${localStorage.getItem("winningScore") || 0}`;
 });
